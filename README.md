@@ -28,7 +28,7 @@ HqlUnit is under active development by *Marshall Peters*, *Mohamed Ibrahim*, and
 
 ## Project Site ##
 
-https://github.com/FINRAOS/
+http://finraos.github.io/HiveQLUnit/
 
 ## Current Release ##
 
