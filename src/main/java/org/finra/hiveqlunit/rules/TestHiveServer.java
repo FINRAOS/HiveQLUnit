@@ -1,0 +1,108 @@
+/*
+ * Copyright 2016 HiveQLUnit Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.finra.hiveqlunit.rules;
+
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.sql.hive.HiveContext;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
+
+/**
+ * TestHiveServer is a TestRule responsible for constructing a HiveContext for use in testing hql scripts
+ *
+ * *MUST* be used with the @ClassRule annotation - other HqlUnit provided TestRules require this rule to run first
+ *
+ * Many classes take a TestHiveServer as an input even though they just need the HiveContext.
+ * TestHiveServer serves as a passable reference to the HiveContext before the context has actually been made
+ */
+public class TestHiveServer implements TestRule {
+
+    private ConstructHiveContextStatement constructContext;
+
+    /**
+     * Wraps a given statement with a ConstructHiveContextStatement
+     *
+     * @param statement the base statement to be wrapped
+     * @param description ignored
+     * @return a ConstructHiveContextStatement instance which wraps the provided statement
+     */
+    @Override
+    public Statement apply(Statement statement, Description description) {
+        constructContext = new ConstructHiveContextStatement(statement);
+        return constructContext;
+    }
+
+    /**
+     * Provides access to the HiveContext produced by this TestRule
+     *
+     * @return the HiveContext produced by this TestRule
+     */
+    public HiveContext getHiveContext() {
+        return constructContext.getHiveContext();
+    }
+
+    /**
+     * A Statement that performs most of the work for TestHiveServer
+     */
+    public static class ConstructHiveContextStatement extends Statement {
+
+        private static HiveContext hiveContextSingleton;
+
+        private Statement wrappedStatement;
+
+        /**
+         * Wraps a given Statement
+         *
+         * This Statement constructs the all important HiveContext, then evaluates the wrapped Statement
+         *
+         * @param wrappedStatement the statement to wrap, which will be evaluated after the HiveContext is made
+         */
+        public ConstructHiveContextStatement(Statement wrappedStatement) {
+            this.wrappedStatement = wrappedStatement;
+        }
+
+        /**
+         * Constructs the all important HiveContext, then evaluates the wrapped Statement
+         *
+         * Currently, the HiveContext is made as a singleton
+         *
+         * @throws Throwable as required by the Statement class
+         */
+        @Override
+        public void evaluate() throws Throwable {
+            if (hiveContextSingleton == null) {
+                SparkConf sparkConf = new SparkConf().setAppName("Test HQL").setMaster("local[1]");
+                JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
+
+                hiveContextSingleton = new HiveContext(sparkContext.sc());
+            }
+
+            wrappedStatement.evaluate();
+        }
+
+        /**
+         * Provides access to the HiveContext produced by this Statement
+         *
+         * @return the HiveContext produced by this TestRule
+         */
+        public HiveContext getHiveContext() {
+            return hiveContextSingleton;
+        }
+    }
+}
