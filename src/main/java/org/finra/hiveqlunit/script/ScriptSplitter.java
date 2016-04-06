@@ -21,25 +21,25 @@ package org.finra.hiveqlunit.script;
  *
  * Needs some work, the quality of the split it not great; many legal scripts might be parsed wrong
  */
-public class ScriptSplitter {
+public final class ScriptSplitter {
+
+    private ScriptSplitter() {
+        
+    }
 
     /**
      * Takes an hql script represented as a String and splits it into multiple hql expressions
      *
      * Expressions are assumed to end with a semi colon followed by a new line (unix style \n or windows style \r\n)
      *
-     * Comments are removed, but only if they start at the beginning of a line
+     * Comments and redundant new lines are removed as a preliminary step before splitting
      *
      * @param script the hql script to split into an expression
      * @return an array of String hql expressions
      */
     public static String[] splitScriptIntoExpressions(String script) {
-        String[] expressions = script.split(";\n|;\r\n|;$");
-
-        for (int i = 0; i < expressions.length; i++) {
-            expressions[i] = expressions[i].replaceAll("--.*(\n|\r\n)", "");
-        }
-
-        return expressions;
+        String scriptNoExtraLines = script.replaceAll("\n(\n|\r\n)+", "\n");
+        String scriptNoComments = scriptNoExtraLines.replaceAll("--.*(\n|\r\n|$)", "");
+        return scriptNoComments.split(";\n|;\r\n|;$");
     }
 }

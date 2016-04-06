@@ -24,7 +24,7 @@ public class ScriptSplitterTest {
     @Test
     public void unixStyleLineEndings() {
         String testScript = "SELECT foo FROM bar;\n"
-                + "SELECT lorem FROM ipsum;\n";
+            + "SELECT lorem FROM ipsum;\n";
 
         String[] statements = ScriptSplitter.splitScriptIntoExpressions(testScript);
 
@@ -46,7 +46,7 @@ public class ScriptSplitterTest {
     @Test
     public void windowsStyleLineEndings() {
         String testScript = "SELECT foo FROM bar;\r\n"
-                + "SELECT lorem FROM ipsum;\r\n";
+            + "SELECT lorem FROM ipsum;\r\n";
 
         String[] statements = ScriptSplitter.splitScriptIntoExpressions(testScript);
 
@@ -68,7 +68,7 @@ public class ScriptSplitterTest {
     @Test
     public void terminalLineEndingOptional() {
         String testScript = "SELECT foo FROM bar;\n"
-                + "SELECT lorem FROM ipsum;";
+            + "SELECT lorem FROM ipsum;";
 
         String[] statements = ScriptSplitter.splitScriptIntoExpressions(testScript);
 
@@ -90,15 +90,77 @@ public class ScriptSplitterTest {
     @Test
     public void excludesCommentedLines() {
         String testScript = "SELECT foo FROM bar;\n"
-                + "-- COMMENT COMMENT COMMENT\n"
-                + "-- COMMENT2 COMMENT2 COMMENT2\r\n"
-                + "SELECT lorem FROM ipsum;\n";
+            + "-- COMMENT COMMENT COMMENT\n"
+            + "-- COMMENT2 COMMENT2 COMMENT2\r\n"
+            + "SELECT lorem FROM ipsum;\n";
 
         String[] statements = ScriptSplitter.splitScriptIntoExpressions(testScript);
 
         Assert.assertEquals(2, statements.length);
         Assert.assertEquals("SELECT foo FROM bar", statements[0]);
         Assert.assertEquals("SELECT lorem FROM ipsum", statements[1]);
+    }
+
+    @Test
+    public void commentedLinesWithSemiColons() {
+        String testScript = "SELECT foo FROM bar;\n"
+            + "-- COMMENT COMMENT COMMENT;\n"
+            + "-- COMMENT2 COMMENT2 COMMENT2;\r\n"
+            + "SELECT lorem FROM ipsum;\n";
+
+        String[] statements = ScriptSplitter.splitScriptIntoExpressions(testScript);
+
+        Assert.assertEquals(2, statements.length);
+        Assert.assertEquals("SELECT foo FROM bar", statements[0]);
+        Assert.assertEquals("SELECT lorem FROM ipsum", statements[1]);
+    }
+
+    @Test
+    public void commentsAtEndOfScript() {
+        String testScript = "SELECT foo FROM bar;\n"
+            + "SELECT lorem FROM ipsum;\n"
+            + "-- COMMENT COMMENT COMMENT\n"
+            + "-- COMMENT2 COMMENT2 COMMENT2\r\n"
+            + "-- COMMENT3 COMMENT3 COMMENT3";
+
+        String[] statements = ScriptSplitter.splitScriptIntoExpressions(testScript);
+
+        Assert.assertEquals(2, statements.length);
+        Assert.assertEquals("SELECT foo FROM bar", statements[0]);
+        Assert.assertEquals("SELECT lorem FROM ipsum", statements[1]);
+    }
+
+    @Test
+    public void commentsStartsMidLine() {
+        String testScript = "SELECT foo --FOO is Important\n"
+            + "FROM bar;\n"
+            + "SELECT lorem FROM ipsum;\n";
+
+        String[] statements = ScriptSplitter.splitScriptIntoExpressions(testScript);
+
+        Assert.assertEquals(2, statements.length);
+        Assert.assertEquals("SELECT foo FROM bar", statements[0]);
+        Assert.assertEquals("SELECT lorem FROM ipsum", statements[1]);
+    }
+
+    @Test
+    public void stripsExtraNewLines() {
+        String testScript = "SELECT foo FROM bar;\n"
+            + "\n"
+            + "\r\n"
+            + "SELECT bar FROM foo;\r\n"
+            + "\r\n"
+            + "\n"
+            + "SELECT lorem FROM ipsum;\n"
+            + "\r\n"
+            + "\n";
+
+        String[] statements = ScriptSplitter.splitScriptIntoExpressions(testScript);
+
+        Assert.assertEquals(3, statements.length);
+        Assert.assertEquals("SELECT foo FROM bar", statements[0]);
+        Assert.assertEquals("SELECT bar FROM foo", statements[1]);
+        Assert.assertEquals("SELECT lorem FROM ipsum", statements[2]);
     }
 
 }
