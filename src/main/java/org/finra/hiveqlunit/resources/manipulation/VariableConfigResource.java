@@ -7,14 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * A decorative TextResource which can wrap any TextResource
- *
- * Substitutes variables in a TextResources content represented by ${variableName} with a desired value
- * Replaces all such instances of ${variableName} with the desired value
- *
- * Similar to SubstituteVariableResource, but can perform multiple substitutions with one wrapper
- *
- * The wrapped resource is not actually altered, it only looks different to calling code
+ * Substitutes variables in a wrapped TextResource's content represented by ${variableName}
+ * with a desired value. Replaces all such instances of ${variableName} with the desired value.
+ * Similar to SubstituteVariableResource, but can perform multiple substitutions with one wrapper.
+ * The wrapped resource is not actually altered, it only looks different to calling code.
  */
 public class VariableConfigResource implements TextResource {
 
@@ -22,7 +18,7 @@ public class VariableConfigResource implements TextResource {
     private TextResource baseResource;
 
     /**
-     * Constructs a TextResource that substitutes variables with values in a wrapped TextResource
+     * Constructs a TextResource that substitutes variables with values in a wrapped TextResource.
      *
      * @param baseResource the wrapped resource
      */
@@ -32,9 +28,8 @@ public class VariableConfigResource implements TextResource {
     }
 
     /**
-     * Constructs a TextResource that substitutes variables with values in a wrapped TextResource
-     *
-     * Configures using a configuration file, with lines of variableName=value
+     * Constructs a TextResource that substitutes variables with values in a wrapped TextResource.
+     * Configures using a configuration file, with lines of variableName=value.
      *
      * @param configuration the text of a configuration file, best acquired through another TextResource
      * @param baseResource the wrapped resource
@@ -49,7 +44,7 @@ public class VariableConfigResource implements TextResource {
     }
 
     /**
-     * Adds additional variable substitutions to the configuration
+     * Adds additional variable substitutions to the configuration.
      *
      * @param variableName the variable to substitute, ie ${variableName} in a script
      * @param variableValue the substitution value
@@ -61,7 +56,8 @@ public class VariableConfigResource implements TextResource {
     }
 
     /**
-     * Reads the text content of the wrapped TextResource, then substitutes variable instances with the correct values
+     * Reads the text content of the wrapped TextResource, then substitutes variable instances
+     * with the correct values.
      *
      * @return the text content of the wrapped TextResource, but with variable substitutions
      */

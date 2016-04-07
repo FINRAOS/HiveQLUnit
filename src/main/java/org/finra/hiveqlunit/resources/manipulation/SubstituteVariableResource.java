@@ -19,12 +19,9 @@ package org.finra.hiveqlunit.resources.manipulation;
 import org.finra.hiveqlunit.resources.TextResource;
 
 /**
- * A decorative TextResource which can wrap any TextResource
- *
- * Substitutes variables in a TextResources content represented by ${variableName} with a desired value
- * Replaces all such instances of ${variableName} with the desired value
- *
- * The wrapped resource is not actually altered, it only looks different to calling code
+ * Substitutes variables in a wrapped TextResource's content represented by ${variableName}
+ * with a desired value. Replaces all such instances of ${variableName} with the desired value.
+ * The wrapped resource is not actually altered, it only looks different to calling code.
  */
 public class SubstituteVariableResource implements TextResource {
 
@@ -33,7 +30,7 @@ public class SubstituteVariableResource implements TextResource {
     private TextResource baseResource;
 
     /**
-     * Constructs a TextResource that substitutes variables with values in a wrapped TextResource
+     * Constructs a TextResource that substitutes variables with values in a wrapped TextResource.
      *
      * @param variableName the variable name, as seen within ${}, ie ${variableName}
      * @param replacementValue the value to replace ${variableName} with
@@ -46,7 +43,8 @@ public class SubstituteVariableResource implements TextResource {
     }
 
     /**
-     * Reads the text content of the wrapped TextResource, then substitutes variable instances with the correct value
+     * Reads the text content of the wrapped TextResource, then substitutes variable instances
+     * with the correct value.
      *
      * @return the text content of the wrapped TextResource, but with variable substitution
      */

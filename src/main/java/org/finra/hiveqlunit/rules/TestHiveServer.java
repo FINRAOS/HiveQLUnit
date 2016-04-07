@@ -24,19 +24,18 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 /**
- * TestHiveServer is a TestRule responsible for constructing a HiveContext for use in testing hql scripts
- *
- * *MUST* be used with the @ClassRule annotation - other HqlUnit provided TestRules require this rule to run first
- *
- * Many classes take a TestHiveServer as an input even though they just need the HiveContext.
- * TestHiveServer serves as a passable reference to the HiveContext before the context has actually been made
+ * TestHiveServer is a TestRule responsible for constructing a HiveContext for use in testing
+ * hql scripts. *MUST* be used with the @ClassRule annotation - other HqlUnit provided TestRules
+ * require this rule to run first. Many classes take a TestHiveServer as an input even though
+ * they just need the HiveContext. TestHiveServer serves as a passable reference to the
+ * HiveContext before the context has actually been made.
  */
 public class TestHiveServer implements TestRule {
 
     private ConstructHiveContextStatement constructContext;
 
     /**
-     * Wraps a given statement with a ConstructHiveContextStatement
+     * Wraps a given statement with a ConstructHiveContextStatement.
      *
      * @param statement the base statement to be wrapped
      * @param description ignored
@@ -49,7 +48,7 @@ public class TestHiveServer implements TestRule {
     }
 
     /**
-     * Provides access to the HiveContext produced by this TestRule
+     * Provides access to the HiveContext produced by this TestRule.
      *
      * @return the HiveContext produced by this TestRule
      */
@@ -58,7 +57,7 @@ public class TestHiveServer implements TestRule {
     }
 
     /**
-     * A Statement that performs most of the work for TestHiveServer
+     * A Statement that performs most of the work for TestHiveServer.
      */
     public static class ConstructHiveContextStatement extends Statement {
 
@@ -67,9 +66,8 @@ public class TestHiveServer implements TestRule {
         private Statement wrappedStatement;
 
         /**
-         * Wraps a given Statement
-         *
-         * This Statement constructs the all important HiveContext, then evaluates the wrapped Statement
+         * This Statement constructs the all important HiveContext, then evaluates the
+         * wrapped Statement.
          *
          * @param wrappedStatement the statement to wrap, which will be evaluated after the HiveContext is made
          */
@@ -78,9 +76,8 @@ public class TestHiveServer implements TestRule {
         }
 
         /**
-         * Constructs the all important HiveContext, then evaluates the wrapped Statement
-         *
-         * Currently, the HiveContext is made as a singleton
+         * Constructs the all important HiveContext, then evaluates the wrapped Statement.
+         * Currently, the HiveContext is made as a singleton.
          *
          * @throws Throwable as required by the Statement class
          */
@@ -97,7 +94,7 @@ public class TestHiveServer implements TestRule {
         }
 
         /**
-         * Provides access to the HiveContext produced by this Statement
+         * Provides access to the HiveContext produced by this Statement.
          *
          * @return the HiveContext produced by this TestRule
          */

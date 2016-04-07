@@ -21,14 +21,15 @@ import org.apache.spark.sql.hive.HiveContext;
 import org.finra.hiveqlunit.resources.TextResource;
 
 /**
- * Runs an hql script containing multiple expressions, using the ScriptSplitter utility to derive individual expressions
+ * Runs an hql script containing multiple expressions, using the ScriptSplitter utility to
+ * derive individual expressions.
  */
 public class MultiExpressionScript implements HqlScript {
 
     private String script;
 
     /**
-     * Constructs a MultiExpressionScript
+     * Constructs a MultiExpressionScript.
      *
      * @param expressionResource a TextResource containing an hql script for MultiExpressionScript to run
      */
@@ -37,9 +38,8 @@ public class MultiExpressionScript implements HqlScript {
     }
 
     /**
-     * Splits the bundled hql script into multiple expressions using ScriptSlitter utility class
-     *
-     * Each expression is run on the provided HiveContext
+     * Splits the bundled hql script into multiple expressions using ScriptSlitter utility class.
+     * Each expression is run on the provided HiveContext.
      *
      * @param hqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      */
@@ -52,9 +52,8 @@ public class MultiExpressionScript implements HqlScript {
     }
 
     /**
-     * Splits the bundled hql script into multiple expressions using ScriptSlitter utility class
-     *
-     * Each expression is run on the provided HiveContext
+     * Splits the bundled hql script into multiple expressions using ScriptSlitter utility class.
+     * Each expression is run on the provided HiveContext.
      *
      * @param hqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      * @return the row results acquired from the last executed expression

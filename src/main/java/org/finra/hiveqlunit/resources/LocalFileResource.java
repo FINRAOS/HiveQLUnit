@@ -22,14 +22,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Handles access to text resources contained in files on the local file system
+ * Handles access to text resources contained in files on the local file system.
  */
 public class LocalFileResource extends InputStreamResource {
 
     private String filePath;
 
     /**
-     * Constructs a TextResource that reads out the content of a file on the local file system
+     * Constructs a TextResource that reads out the content of a file on the local file system.
      *
      * @param filePath the file system path of the file
      */
@@ -38,7 +38,7 @@ public class LocalFileResource extends InputStreamResource {
     }
 
     /**
-     * Files ion the local file system are easily accessed as InputStreams
+     * Files on the local file system are easily accessed as InputStreams.
      *
      * @return an InputStream with the contents of the local file
      */

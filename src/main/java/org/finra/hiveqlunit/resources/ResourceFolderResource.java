@@ -19,16 +19,16 @@ package org.finra.hiveqlunit.resources;
 import java.io.InputStream;
 
 /**
- * Jars can have files packaged into the resources folder of the jar
- *
- * This TextResource handles access to said resource folder files
+ * Jars can have files packaged into the resources folder of the jar. This TextResource handles
+ * access to said resource folder files.
  */
 public class ResourceFolderResource extends InputStreamResource {
 
     private String resourcePath;
 
     /**
-     * Constructs a TextResource that reads out the content of a file in the resources folder of a jar
+     * Constructs a TextResource that reads out the content of a file in the resources folder
+     * of a jar.
      *
      * @param resourcePath the full path of the resource folder file, ie '/foo/bar/file.dat'
      */
@@ -37,7 +37,7 @@ public class ResourceFolderResource extends InputStreamResource {
     }
 
     /**
-     * Files in the resource folder are easily accessed as InputStreams
+     * Files in the resource folder are easily accessed as InputStreams.
      *
      * @return an InputStream with the contents of the resource folder file
      */
