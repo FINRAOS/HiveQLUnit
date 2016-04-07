@@ -19,18 +19,16 @@ package org.finra.hiveqlunit.resources.manipulation;
 import org.finra.hiveqlunit.resources.TextResource;
 
 /**
- * A decorative TextResource which can wrap any TextResource
- *
- * Replaces \r\n line endings in the wrapped TextResource with \n line endings
- *
- * The wrapped resource is not actually altered, it only looks different to calling code
+ * Replaces \r\n line endings in a wrapped TextResource with \n line endings. The
+ * wrapped resource is not actually altered, it only looks different to calling code.
  */
 public class Dos2UnixResource implements TextResource {
 
     private TextResource baseResource;
 
     /**
-     * Constructs a TextResource that disguises Windows line endings in a wrapped resource with Unix line endings
+     * Constructs a TextResource that disguises Windows line endings in a wrapped resource with
+     * Unix line endings.
      *
      * @param baseResource the TextResource to wrap
      */
@@ -39,7 +37,8 @@ public class Dos2UnixResource implements TextResource {
     }
 
     /**
-     * Reads the text content of the wrapped TextResource, then changes the line endings of what was read
+     * Reads the text content of the wrapped TextResource, then changes the line endings of what
+     * was read.
      *
      * @return the text content of the wrapped TextResource, but with Unix line endings
      */

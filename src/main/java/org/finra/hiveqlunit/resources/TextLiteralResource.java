@@ -17,14 +17,14 @@
 package org.finra.hiveqlunit.resources;
 
 /**
- * The most basic TextResource - wraps text literals or Java strings as a TextResource
+ * The most basic TextResource - wraps text literals or Java strings as a TextResource.
  */
 public class TextLiteralResource implements TextResource {
 
     private String resourceText;
 
     /**
-     * Constructs a TextResource that wraps a string value, which is the resources' text content
+     * Constructs a TextResource that wraps a string value, which is the resources' text content.
      *
      * @param resourceText the resources' text content
      */
@@ -33,7 +33,7 @@ public class TextLiteralResource implements TextResource {
     }
 
     /**
-     * This TextResource wraps a string value, which is the resources' text content
+     * This TextResource wraps a string value, which is the resource's text content.
      *
      * @return the resourceText param passed to the constructor
      */

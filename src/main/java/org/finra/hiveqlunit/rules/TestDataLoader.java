@@ -27,7 +27,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * This TestRule class provides utility functions for extracting testing data from resources and loading it into Hive tables
+ * This TestRule class provides utility functions for extracting testing data from resources
+ * and loading it into Hive tables.
  */
 public class TestDataLoader implements TestRule {
 
@@ -35,7 +36,7 @@ public class TestDataLoader implements TestRule {
     private TemporaryFolder stagingLocation;
 
     /**
-     * Constructs a new TestDataLoader
+     * Constructs a new TestDataLoader.
      *
      * @param hiveServer the TestHiveServer to load data into
      */
@@ -45,9 +46,8 @@ public class TestDataLoader implements TestRule {
     }
 
     /**
-     * Uses a TemporaryFolder rule to process a given statement
-     *
-     * The TemporaryFolder will be used to construct staging files for loading data into Hive
+     * Uses a TemporaryFolder rule to process a given statement. The TemporaryFolder will be
+     * used to construct staging files for loading data into Hive.
      *
      * @param base the statement to apply a TemporaryFolder to
      * @param description the description to apply a TemporaryFolder to
@@ -59,9 +59,8 @@ public class TestDataLoader implements TestRule {
     }
 
     /**
-     * Loads data from a TextResource into a hive table
-     *
-     * A temporary file on the local file system is used as a staging ground for the data
+     * Loads data from a TextResource into a hive table. A temporary file on the local file
+     * system is used as a staging ground for the data.
      *
      * @param tableName the name of the table
      * @param tableDataResource the resource to extract data from
@@ -71,9 +70,8 @@ public class TestDataLoader implements TestRule {
     }
 
     /**
-     * Loads data from a TextResource into a hive table
-     *
-     * A temporary file on the local file system is used as a staging ground for the data
+     * Loads data from a TextResource into a hive table. A temporary file on the local file
+     * system is used as a staging ground for the data.
      *
      * @param tableName the name of the table
      * @param tableDataResource the resource to extract data from

@@ -21,16 +21,15 @@ import org.apache.spark.sql.hive.HiveContext;
 import org.finra.hiveqlunit.resources.TextResource;
 
 /**
- * Runs a single hql expression, with no heed for comments or scripts with multiple expressions in them
+ * Runs a single hql expression, with no heed for comments or scripts with multiple expressions
+ * in them.
  */
 public class SingleExpressionScript implements HqlScript {
 
     private String expression;
 
     /**
-     * Constructs a SingleExpressionScript
-     *
-     * The provided hql script will be run as a single expression with no pre-processing
+     * The provided hql script will be run as a single expression with no pre-processing.
      *
      * @param expressionResource a TextResource, properly containing one hql expression with no comments or such
      */
@@ -39,7 +38,8 @@ public class SingleExpressionScript implements HqlScript {
     }
 
     /**
-     * Runs the hql contained in the constructor given TextResource, treating it as a single expression with no comments
+     * Runs the hql contained in the constructor given TextResource, treating it as a single
+     * expression with no comments.
      *
      * @param hqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      */
@@ -49,7 +49,8 @@ public class SingleExpressionScript implements HqlScript {
     }
 
     /**
-     * Runs the hql contained in the constructor given TextResource, treating it as a single expression with no comments
+     * Runs the hql contained in the constructor given TextResource, treating it as a single
+     * expression with no comments.
      *
      * @param hqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      * @return a result set of Rows produced by running the hql script or expressions represented by this HqlScript

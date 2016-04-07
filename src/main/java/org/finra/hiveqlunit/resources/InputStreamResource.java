@@ -23,16 +23,14 @@ import java.io.InputStream;
 import java.io.StringWriter;
 
 /**
- * Provides an abstract TextResource for building TextResource classes that access InputStream accessible resources
- *
- * InputStreamResource handles the utility of reading out the content of an InputStream into a String
- *
- * Child classes provide the InputStream to read from
+ * Provides an abstract TextResource for building TextResource classes that access InputStream
+ * accessible resources. InputStreamResource handles the utility of reading out the content of
+ * an InputStream into a String. Child classes provide the InputStream to read from.
  */
 public abstract class InputStreamResource implements TextResource {
 
     /**
-     * Provides an InputStream with the text content of the TextResource
+     * Provides an InputStream with the text content of the TextResource.
      *
      * @return an InputStream to read the text content of the TextResource from
      * @throws IOException if the InputStream can not be constructed
@@ -40,7 +38,9 @@ public abstract class InputStreamResource implements TextResource {
     public abstract InputStream resourceStream() throws IOException;
 
     /**
-     * Provides the text content of the TextResource by reading out the content of the resource's InputStream
+     * Provides the text content of the TextResource by reading out the content of the resource's
+     * InputStream.
+     *
      * @return the text content of the TextResource, as contained in its provided InputStream
      */
     @Override

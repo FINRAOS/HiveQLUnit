@@ -17,9 +17,9 @@
 package org.finra.hiveqlunit.script;
 
 /**
- * A static only utility class with functionality to split hql scripts into multiple expressions
- *
- * Needs some work, the quality of the split it not great; many legal scripts might be parsed wrong
+ * A static only utility class with functionality to split hql scripts into multiple expressions.
+ * Needs some work, the quality of the split it not great; many legal scripts might be parsed
+ * wrong.
  */
 public final class ScriptSplitter {
 
@@ -28,11 +28,10 @@ public final class ScriptSplitter {
     }
 
     /**
-     * Takes an hql script represented as a String and splits it into multiple hql expressions
-     *
-     * Expressions are assumed to end with a semi colon followed by a new line (unix style \n or windows style \r\n)
-     *
-     * Comments and redundant new lines are removed as a preliminary step before splitting
+     * Takes an hql script represented as a String and splits it into multiple hql expressions.
+     * Expressions are assumed to end with a semi colon followed by a new line (unix style \n
+     * or windows style \r\n). Comments and redundant new lines are removed as a preliminary
+     * step before splitting.
      *
      * @param script the hql script to split into an expression
      * @return an array of String hql expressions

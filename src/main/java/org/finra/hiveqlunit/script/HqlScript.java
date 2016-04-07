@@ -20,23 +20,22 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.hive.HiveContext;
 
 /**
- * Abstracts the execution of hql scripts or expressions
- *
- * How to handle comments in scripts, or split scripts into runnable expressions is handled here
- *
- * This is separate from acquiring the text representing the hql script or expression, TextResources better handle that
+ * Abstracts the execution of hql scripts or expressions. How to handle comments in scripts,
+ * or split scripts into runnable expressions is handled here. This is separate from acquiring
+ * the text representing the hql script or expression, TextResources better handle that.
  */
 public interface HqlScript {
 
     /**
-     * Runs the hql script or expressions represented by this HqlScript using a HiveContext
+     * Runs the hql script or expressions represented by this HqlScript using a HiveContext.
      *
      * @param hqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      */
     public void runScript(HiveContext hqlContext);
 
     /**
-     * Runs the hql script or expressions represented by this HqlScript using a HiveContext, returning a results set from the script
+     * Runs the hql script or expressions represented by this HqlScript using a HiveContext,
+     * returning a results set from the script.
      *
      * @param hqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      * @return a result set of Rows produced by running the hql script or expressions represented by this HqlScript

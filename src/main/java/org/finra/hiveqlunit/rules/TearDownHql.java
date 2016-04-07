@@ -22,12 +22,11 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 /**
- * A TestRule which executes hive scripts after the test is done as part of a clean up effort
- *
- * The order of evaluation amongst multiple TearDownHql rules is *NON DETERMINISTIC*
- * If evaluation order matters, use the same rule to execute multiple tear down commands as part of the same script
- *
- * If the test method (annotated with @Test) fails, the tear down script will still be run
+ * A TestRule which executes hive scripts after the test is done as part of a clean up effort.
+ * The order of evaluation amongst multiple TearDownHql rules is *NON DETERMINISTIC*. If
+ * evaluation order matters, use the same rule to execute multiple tear down commands as
+ * part of the same script. If the test method (annotated with @Test) fails, the tear down
+ * script will still be run.
  */
 public class TearDownHql implements TestRule {
 
@@ -35,7 +34,7 @@ public class TearDownHql implements TestRule {
     private HqlScript tearDownHql;
 
     /**
-     * Constructs a TearDownHql object
+     * Constructs a TearDownHql object.
      *
      * @param testingHiveServer the TestHiveServer to run the tear down script on
      * @param tearDownHql a TextResource containing with the tear down script to run
@@ -46,9 +45,8 @@ public class TearDownHql implements TestRule {
     }
 
     /**
-     * Wraps a given Statement with a RunTearDownHqlStatement instance
-     *
-     * When the nested Statement chain is evaluated, the tear down script will run after the wrapped statement is evaluated
+     * Wraps a given Statement with a RunTearDownHqlStatement instance. When the nested Statement
+     * chain is evaluated, the tear down script will run after the wrapped statement is evaluated.
      *
      * @param statement the Statement to run the tear down script after evaluation of
      * @param description ignored
@@ -60,7 +58,7 @@ public class TearDownHql implements TestRule {
     }
 
     /**
-     * A Statement that does the actual heavy lifting for TearDownHql
+     * A Statement that does the actual heavy lifting for TearDownHql.
      */
     public static class RunTearDownHqlStatement extends Statement {
 
@@ -69,9 +67,8 @@ public class TearDownHql implements TestRule {
         private HqlScript tearDownHql;
 
         /**
-         * Constructs a RunTearDownHqlStatement
-         *
-         * When evaluated this Statement evaluates a wrapped statement and then runs an hql script as testing tear down
+         * When evaluated this Statement evaluates a wrapped statement and then runs an hql
+         * script as testing tear down.
          *
          * @param wrappedStatement the Statement to execute the tear down script after evaluation of
          * @param testingHiveServer the TestHiveServer to run the tear down script on
@@ -84,9 +81,8 @@ public class TearDownHql implements TestRule {
         }
 
         /**
-         * Evaluates the wrapped statement, followed by executing the tear down script
-         *
-         * The script will always be executed even if a test fails or an error has been thrown
+         * Evaluates the wrapped statement, followed by executing the tear down script.
+         * The script will always be executed even if a test fails or an error has been thrown.
          *
          * @throws Throwable as required by the Statement class
          */

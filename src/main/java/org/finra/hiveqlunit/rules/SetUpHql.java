@@ -22,10 +22,9 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 /**
- * A TestRule which executes hive scripts before the test is executed as part of a set up effort
- *
- * The order of evaluation amongst multiple SetUpHql rules is *NON DETERMINISTIC*
- * If evaluation order matters, use the same rule to execute multiple set up commands as part of the same script
+ * A TestRule which executes hive scripts before the test is executed as part of a set up effort.
+ * The order of evaluation amongst multiple SetUpHql rules is *NON DETERMINISTIC*. If evaluation
+ * order matters, use the same rule to execute multiple set up commands as part of the same script.
  */
 public class SetUpHql implements TestRule {
 
@@ -33,7 +32,7 @@ public class SetUpHql implements TestRule {
     private HqlScript setUpHql;
 
     /**
-     * Constructs a SetUpHql object
+     * Constructs a SetUpHql object.
      *
      * @param testingHiveServer the TestHiveServer to run the set up on
      * @param setUpHql a TextResource containing with the set up script to run
@@ -44,9 +43,8 @@ public class SetUpHql implements TestRule {
     }
 
     /**
-     * Wraps a given Statement with a RunSetUpHqlStatement instance
-     *
-     * When the nested Statement chain is evaluated, set up script is run, and then the wrapped Statement is evaluated
+     * Wraps a given Statement with a RunSetUpHqlStatement instance. When the nested Statement
+     * chain is evaluated, set up script is run, and then the wrapped Statement is evaluated.
      *
      * @param statement the Statement to run the set up script before evaluation of
      * @param description ignored
@@ -58,7 +56,7 @@ public class SetUpHql implements TestRule {
     }
 
     /**
-     * A Statement that does the actual heavy lifting for SetUpHql
+     * A Statement that does the actual heavy lifting for SetUpHql.
      */
     public static class RunSetUpHqlStatement extends Statement {
 
@@ -67,9 +65,8 @@ public class SetUpHql implements TestRule {
         private HqlScript setUpHql;
 
         /**
-         * Constructs a RunSetUpHqlStatement
-         *
-         * When evaluated this Statement runs a hive script as set up code and then evaluates a wrapped Statement
+         * When evaluated this Statement runs a hive script as set up code and then evaluates a
+         * wrapped Statement.
          *
          * @param wrappedStatement the Statement to execute the set up script before evaluation of
          * @param testingHiveServer the TestHiveServer to run the set up script on
@@ -82,7 +79,7 @@ public class SetUpHql implements TestRule {
         }
 
         /**
-         * Executes the set up hql script, and then evaluates the wrapped Statement
+         * Executes the set up hql script, and then evaluates the wrapped Statement.
          *
          * @throws Throwable as required by the Statement class
          */

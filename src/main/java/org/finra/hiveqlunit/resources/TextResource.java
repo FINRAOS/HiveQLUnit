@@ -17,14 +17,14 @@
 package org.finra.hiveqlunit.resources;
 
 /**
- * Abstracts access to textual resources needed during testing, such as test data or hql scripts
- *
- * By using this interface, code that uses testing resources can be written agnostic to the origin or nature of the resource
+ * Abstracts access to textual resources needed during testing, such as test data or hql scripts.
+ * By using this interface, code that uses testing resources can be written agnostic to the
+ * origin or nature of the resource.
  */
 public interface TextResource {
 
     /**
-     * Provides the text content of the resource the TextResource object represents
+     * Provides the text content of the resource the TextResource object represents.
      *
      * @return the text content of the resource the TextResource object represents
      */
