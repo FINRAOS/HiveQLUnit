@@ -25,14 +25,40 @@ import org.junit.runners.model.Statement;
 
 /**
  * TestHiveServer is a TestRule responsible for constructing a HiveContext for use in testing
- * hql scripts. *MUST* be used with the @ClassRule annotation - other HqlUnit provided TestRules
+ * hql scripts. *MUST* be used with the @ClassRule annotation - other HiveQLUnit provided TestRules
  * require this rule to run first. Many classes take a TestHiveServer as an input even though
  * they just need the HiveContext. TestHiveServer serves as a passable reference to the
  * HiveContext before the context has actually been made.
  */
 public class TestHiveServer implements TestRule {
 
+    private String serverAddress;
     private ConstructHiveContextStatement constructContext;
+
+    /**
+     * Makes a TestHiveServer backed with a local spark instance on one thread.
+     */
+    public TestHiveServer() {
+        this(1);
+    }
+
+    /**
+     * Makes a TestHiveServer backed with a local spark instance on a requested number of threads.
+     *
+     * @param localThreadCount the desired number of local threads
+     */
+    public TestHiveServer(int localThreadCount) {
+        serverAddress = "local[" + localThreadCount + "]";
+    }
+
+    /**
+     * Makes a TestHiveServer backed with a given spark cluster.
+     *
+     * @param serverAddress the address of the spark cluster
+     */
+    public TestHiveServer(String serverAddress) {
+        this.serverAddress = serverAddress;
+    }
 
     /**
      * Wraps a given statement with a ConstructHiveContextStatement.
@@ -43,7 +69,7 @@ public class TestHiveServer implements TestRule {
      */
     @Override
     public Statement apply(Statement statement, Description description) {
-        constructContext = new ConstructHiveContextStatement(statement);
+        constructContext = new ConstructHiveContextStatement(serverAddress, statement);
         return constructContext;
     }
 
@@ -63,15 +89,19 @@ public class TestHiveServer implements TestRule {
 
         private static HiveContext hiveContextSingleton;
 
+        private String serverAddress;
         private Statement wrappedStatement;
 
         /**
          * This Statement constructs the all important HiveContext, then evaluates the
          * wrapped Statement.
          *
-         * @param wrappedStatement the statement to wrap, which will be evaluated after the HiveContext is made
+         * @param serverAddress the address of the backing spark cluster
+         * @param wrappedStatement the statement to wrap, which will be evaluated after the
+         *                         HiveContext is made
          */
-        public ConstructHiveContextStatement(Statement wrappedStatement) {
+        public ConstructHiveContextStatement(String serverAddress, Statement wrappedStatement) {
+            this.serverAddress = serverAddress;
             this.wrappedStatement = wrappedStatement;
         }
 
@@ -84,7 +114,7 @@ public class TestHiveServer implements TestRule {
         @Override
         public void evaluate() throws Throwable {
             if (hiveContextSingleton == null) {
-                SparkConf sparkConf = new SparkConf().setAppName("Test HQL").setMaster("local[1]");
+                SparkConf sparkConf = new SparkConf().setAppName("HiveQLUnit").setMaster(serverAddress);
                 JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
 
                 hiveContextSingleton = new HiveContext(sparkContext.sc());
