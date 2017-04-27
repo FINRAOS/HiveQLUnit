@@ -11,6 +11,7 @@ The HiveQLUnit project is licensed under Apache License Version 2.0
 * [Making an HQL Unit Project](userguides/MakingAnHiveQLUnitProject.md)
 * [Running HQL Unit Tests](userguides/RunningHiveQLUnitTests.md)
 * [Writing HQL Unit Tests](userguides/WritingHiveQLUnitTests.md)
+* [Example of writing a HQL Unit Test](http://technology.finra.org/code/unit-testing-hive-scripts-with-hiveqlunit.html)
 
 ## Project Site ##
 
