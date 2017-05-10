@@ -16,6 +16,7 @@ public class Check {
 
     HiveContext hc;
 
+
     public Check() {
 
         String header;
@@ -39,6 +40,16 @@ public class Check {
 
 
     }
+
+    public Check(HiveContext hiveContext) {
+
+        String header;
+        String sql;
+
+        hc = hiveContext;
+
+    }
+
 
     public static boolean verify(String createTableStatement, String sqlStatement ) {
 
