@@ -31,7 +31,7 @@ import java.io.PrintStream;
 public class LocalFileResourceTest {
 
     @Rule
-    public static TemporaryFolder testFolder = new TemporaryFolder();
+    public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
     public void providesCorrectInputStreamTest() {

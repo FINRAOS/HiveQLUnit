@@ -17,8 +17,10 @@
 package org.finra.hiveqlunit.script;
 
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.hive.HiveContext;
+import org.apache.spark.sql.SQLContext;
 import org.finra.hiveqlunit.resources.TextResource;
+
+import java.util.List;
 
 /**
  * Runs a single hql expression, with no heed for comments or scripts with multiple expressions
@@ -44,19 +46,19 @@ public class SingleExpressionScript implements HqlScript {
      * @param hqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      */
     @Override
-    public void runScript(HiveContext hqlContext) {
-        hqlContext.sql(expression);
+    public void runScript(SQLContext sqlContext) {
+        sqlContext.sql(expression);
     }
 
     /**
      * Runs the hql contained in the constructor given TextResource, treating it as a single
      * expression with no comments.
      *
-     * @param hqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
+     * @param sqlContext an sqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      * @return a result set of Rows produced by running the hql script or expressions represented by this HqlScript
      */
     @Override
-    public Row[] runScriptReturnResults(HiveContext hqlContext) {
-        return hqlContext.sql(expression).collect();
+    public List<Row> runScriptReturnResults(SQLContext sqlContext) {
+        return sqlContext.sql(expression).collectAsList();
     }
 }

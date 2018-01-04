@@ -17,7 +17,9 @@
 package org.finra.hiveqlunit.script;
 
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.hive.HiveContext;
+import org.apache.spark.sql.SQLContext;
+
+import java.util.List;
 
 /**
  * Abstracts the execution of hql scripts or expressions. How to handle comments in scripts,
@@ -29,17 +31,17 @@ public interface HqlScript {
     /**
      * Runs the hql script or expressions represented by this HqlScript using a HiveContext.
      *
-     * @param hqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
+     * @param sqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      */
-    public void runScript(HiveContext hqlContext);
+    public void runScript(SQLContext sqlContext);
 
     /**
      * Runs the hql script or expressions represented by this HqlScript using a HiveContext,
      * returning a results set from the script.
      *
-     * @param hqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
+     * @param sqlContext an sqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      * @return a result set of Rows produced by running the hql script or expressions represented by this HqlScript
      */
-    public Row[] runScriptReturnResults(HiveContext hqlContext);
+    public List<Row> runScriptReturnResults(SQLContext sqlContext);
 
 }

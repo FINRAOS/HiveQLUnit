@@ -85,7 +85,7 @@ public class TestDataLoader implements TestRule {
             writer.print(tableData);
             writer.close();
 
-            hiveServer.getHiveContext().sql("LOAD DATA LOCAL INPATH '"
+            hiveServer.getSqlContext().sql("LOAD DATA LOCAL INPATH '"
                     + stagingFile.getAbsolutePath().replace("\\", "/")
                     + "' INTO TABLE "
                     + tableName

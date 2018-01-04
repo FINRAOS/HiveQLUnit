@@ -85,7 +85,7 @@ public class SetUpHql implements TestRule {
          */
         @Override
         public void evaluate() throws Throwable {
-            setUpHql.runScript(testingHiveServer.getHiveContext());
+            setUpHql.runScript(testingHiveServer.getSqlContext());
             wrappedStatement.evaluate();
         }
     }

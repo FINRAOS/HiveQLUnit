@@ -16,7 +16,7 @@
 
 package org.finra.hiveqlunit.resources.manipulation;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.finra.hiveqlunit.resources.TextLiteralResource;
 import org.finra.hiveqlunit.resources.TextResource;
 import org.junit.Test;
