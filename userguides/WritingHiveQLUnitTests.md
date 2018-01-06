@@ -80,8 +80,8 @@ The TestDataLoader provides utility methods accesible from within test methods f
         loader.loadDataIntoTable("src", new LocalFileResource("C:/cygwin64/home/K00001/testdata.txt"), "");
 
         HiveContext sqlContext = hiveServer.getSqlContext();
-        Row[] results = sqlContext.sql("SELECT key FROM src WHERE key = 5").collect();
-        Assert.assertEquals(3, results.length);
+        List<Row> results = sqlContext.sql("SELECT key FROM src WHERE key = 5").collectAsList();
+        Assert.assertEquals(3, results.size());
     }
 
 ### SetUpHql ###

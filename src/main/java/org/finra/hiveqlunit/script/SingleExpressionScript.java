@@ -43,7 +43,7 @@ public class SingleExpressionScript implements HqlScript {
      * Runs the hql contained in the constructor given TextResource, treating it as a single
      * expression with no comments.
      *
-     * @param sqlContext an SqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
+     * @param sqlContext an SQLContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      */
     @Override
     public void runScript(SQLContext sqlContext) {
@@ -54,7 +54,7 @@ public class SingleExpressionScript implements HqlScript {
      * Runs the hql contained in the constructor given TextResource, treating it as a single
      * expression with no comments.
      *
-     * @param sqlContext an sqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
+     * @param sqlContext an SQLContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      * @return a result set of Rows produced by running the hql script or expressions represented by this HqlScript
      */
     @Override

@@ -29,9 +29,9 @@ import java.util.List;
 public interface HqlScript {
 
     /**
-     * Runs the hql script or expressions represented by this HqlScript using a HiveContext.
+     * Runs the sql script or expressions represented by this HqlScript using a HiveContext.
      *
-     * @param sqlContext an HqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
+     * @param sqlContext an SQLContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      */
     public void runScript(SQLContext sqlContext);
 
@@ -39,7 +39,7 @@ public interface HqlScript {
      * Runs the hql script or expressions represented by this HqlScript using a HiveContext,
      * returning a results set from the script.
      *
-     * @param sqlContext an sqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
+     * @param sqlContext an SQLContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      * @return a result set of Rows produced by running the hql script or expressions represented by this HqlScript
      */
     public List<Row> runScriptReturnResults(SQLContext sqlContext);

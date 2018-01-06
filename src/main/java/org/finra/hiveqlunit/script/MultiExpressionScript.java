@@ -57,7 +57,7 @@ public class MultiExpressionScript implements HqlScript {
      * Splits the bundled hql script into multiple expressions using ScriptSlitter utility class.
      * Each expression is run on the provided HiveContext.
      *
-     * @param sqlContext an SqlContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
+     * @param sqlContext an SQLContext, as provided by spark through the TestHiveServer TestRule, used to run hql expressions
      * @return the row results acquired from the last executed expression
      */
     @Override
@@ -70,6 +70,5 @@ public class MultiExpressionScript implements HqlScript {
 
         List<Row> rows = sqlContext.sql(expressions[expressions.length - 1]).collectAsList();
         return rows;
-        //return sqlContext.sql(expressions[expressions.length - 1]).collectAsList();
     }
 }
