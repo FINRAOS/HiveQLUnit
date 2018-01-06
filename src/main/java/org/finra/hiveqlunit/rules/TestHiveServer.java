@@ -17,8 +17,8 @@
 package org.finra.hiveqlunit.rules;
 
 import org.apache.spark.SparkConf;
-import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.sql.hive.HiveContext;
+import org.apache.spark.sql.SQLContext;
+import org.apache.spark.sql.SparkSession;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
@@ -78,8 +78,8 @@ public class TestHiveServer implements TestRule {
      *
      * @return the HiveContext produced by this TestRule
      */
-    public HiveContext getHiveContext() {
-        return constructContext.getHiveContext();
+    public SQLContext getSqlContext() {
+        return constructContext.getSqlContext();
     }
 
     /**
@@ -87,8 +87,7 @@ public class TestHiveServer implements TestRule {
      */
     public static class ConstructHiveContextStatement extends Statement {
 
-        private static HiveContext hiveContextSingleton;
-
+        private static SQLContext sparkSqlContextSingleton;
         private String serverAddress;
         private Statement wrappedStatement;
 
@@ -113,11 +112,10 @@ public class TestHiveServer implements TestRule {
          */
         @Override
         public void evaluate() throws Throwable {
-            if (hiveContextSingleton == null) {
+            if (sparkSqlContextSingleton == null) {
                 SparkConf sparkConf = new SparkConf().setAppName("HiveQLUnit").setMaster(serverAddress);
-                JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
-
-                hiveContextSingleton = new HiveContext(sparkContext.sc());
+                SparkSession sparkSession = SparkSession.builder().config(sparkConf).enableHiveSupport().getOrCreate();
+                sparkSqlContextSingleton = sparkSession.sqlContext();
             }
 
             wrappedStatement.evaluate();
@@ -128,8 +126,8 @@ public class TestHiveServer implements TestRule {
          *
          * @return the HiveContext produced by this TestRule
          */
-        public HiveContext getHiveContext() {
-            return hiveContextSingleton;
+        public SQLContext getSqlContext() {
+            return sparkSqlContextSingleton;
         }
     }
 }

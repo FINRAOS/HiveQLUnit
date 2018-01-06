@@ -16,13 +16,14 @@
 
 package org.finra.hiveqlunit.rules;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.hive.HiveContext;
+import org.apache.spark.sql.SQLContext;
 import org.finra.hiveqlunit.script.HqlScript;
 import org.junit.Test;
 import org.junit.runners.model.Statement;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TearDownHqlTest {
@@ -44,14 +45,14 @@ public class TearDownHqlTest {
 
         TestHiveServer dummyServer = new TestHiveServer() {
             @Override
-            public HiveContext getHiveContext() {
+            public SQLContext getSqlContext() {
                 return null;
             }
         };
 
         HqlScript dummyScript = new HqlScript() {
             @Override
-            public void runScript(HiveContext hqlContext) {
+            public void runScript(SQLContext sqlContext) {
                 Assert.assertFalse(scriptRun.get());
                 Assert.assertTrue(statementCalled.get());
 
@@ -59,7 +60,7 @@ public class TearDownHqlTest {
             }
 
             @Override
-            public Row[] runScriptReturnResults(HiveContext hqlContext) {
+            public List<Row> runScriptReturnResults(SQLContext sqlContext) {
                 Assert.fail();
                 return null;
             }

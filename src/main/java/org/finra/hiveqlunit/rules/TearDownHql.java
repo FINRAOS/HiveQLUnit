@@ -91,7 +91,7 @@ public class TearDownHql implements TestRule {
             try {
                 wrappedStatement.evaluate();
             } finally {
-                tearDownHql.runScript(testingHiveServer.getHiveContext());
+                tearDownHql.runScript(testingHiveServer.getSqlContext());
             }
         }
     }

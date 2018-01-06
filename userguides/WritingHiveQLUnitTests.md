@@ -39,10 +39,10 @@ The HqlScript interface abstracts how to parse and run an hql script on a hive s
     public static TestHiveServer hiveServer = new TestHiveServer();
 
     @Rule
-    public static TestDataLoader loader = new TestDataLoader(hiveServer);
+    public TestDataLoader loader = new TestDataLoader(hiveServer);
 
     @Rule
-    public static SetUpHql prepSrc =
+    public SetUpHql prepSrc =
             new SetUpHql(
                     hiveServer,
                     new MultiExpressionScript(
@@ -51,7 +51,7 @@ The HqlScript interface abstracts how to parse and run an hql script on a hive s
             );
 
     @Rule
-    public static TearDownHql cleanSrc =
+    public TearDownHql cleanSrc =
             new TearDownHql(
                     hiveServer,
                     new SingleExpressionScript(
@@ -71,7 +71,7 @@ The TestHiveServer constructs an instance of HiveContext, which provides access 
 ### TestDataLoader ###
 
     @Rule
-    public static TestDataLoader loader = new TestDataLoader(hiveServer);
+    public TestDataLoader loader = new TestDataLoader(hiveServer);
 
 The TestDataLoader provides utility methods accesible from within test methods for loading data out of a TextResource and into a Hive table.
 
@@ -79,9 +79,9 @@ The TestDataLoader provides utility methods accesible from within test methods f
     public void test() {
         loader.loadDataIntoTable("src", new LocalFileResource("C:/cygwin64/home/K00001/testdata.txt"), "");
 
-        HiveContext sqlContext = hiveServer.getHiveContext();
-        Row[] results = sqlContext.sql("SELECT key FROM src WHERE key = 5").collect();
-        Assert.assertEquals(3, results.length);
+        SQLContext sqlContext = hiveServer.getSqlContext();
+        List<Row> results = sqlContext.sql("SELECT key FROM src WHERE key = 5").collectAsList();
+        Assert.assertEquals(3, results.size());
     }
 
 ### SetUpHql ###
