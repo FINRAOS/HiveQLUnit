@@ -19,7 +19,7 @@ The TextResource interface abstracts access to resources like scripts and testin
     new LocalFileResource("C:/cygwin64/home/K00001/testdata.txt")
     new ResourceFolderResource("/testdata.txt")
 
-Many other tools provided by HiveQLUnit take a TextResource as an input. Because of this, theses tools can work with many different data sources.
+Many other tools provided by HiveQLUnit take a TextResource as an input. Because of this, these tools can work with many different data sources.
 
 ### HqlScript ###
 
