@@ -1,3 +1,5 @@
+[![Black Duck Security Risk](https://copilot.blackducksoftware.com/github/repos/FINRAOS/HiveQLUnit/branches/master/badge-risk.svg)](https://copilot.blackducksoftware.com/github/repos/FINRAOS/HiveQLUnit/branches/master)
+
 # HiveQLUnit #
 
 HiveQLUnit is a unit testing framework for Hive HQL scripts. HiveQLUnit is low installation, managing the testing Hive Server for the user, and fully integrates with the JUnit unit testing framework.
